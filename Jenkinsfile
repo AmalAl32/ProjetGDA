@@ -1,9 +1,14 @@
 pipeline {
   agent any
   stages {
-    stage('Recupérer code source') {
+    stage('RecupÃ©rer code source') {
       steps {
         git 'https://github.com/AmalAl32/ProjetGDA.git'
+      }
+    }
+    stage('built maven') {
+      steps {
+        sh 'mvn clean install'
       }
     }
   }
