@@ -42,7 +42,7 @@
  							<p:growl id="Confirmation" showDetail="true" />						   
  							 <p:commandLink value="Supprimer" action="#{listePacksAssociationBean.supprimerPack}"   update="pack"
 						    	   style="color:blue;   text-decoration:underline; font-weight: bold "  >
-						    	<f:setPropertyActionListener value="#{pack}" target="#{listePacksAssociationBean.selectedPackAsupp}" />
+						    	<f:setPropertyActionListener value="#{pack}" target="#{listePacksAssociationBean.selectPack}" />
 						         <p:confirm header="Confirmation" message="Etes-vous sûr de vouloir supprimer ce pack ?" icon="ui-icon-alert" />
 						    </p:commandLink >						 
 						    
@@ -54,6 +54,7 @@
    		 					<p:commandLink value="Détails" actionListener="#{packFiltrageBean.recupererListeProduits}" 
 											update=":form:detailPack" oncomplete="PF('packDialog').show()" title="Detail du pack"
 											style="color:blue;margin-left: 10%;  text-decoration:underline; font-weight: bold ">
+											<f:setPropertyActionListener value="#{pack}" target="#{packFiltrageBean.selectedPackAssociation}" />
 							</p:commandLink>
  				    
 <!-- 						    <p:commandButton value="Modifier" id="modifPack" update="growl" actionListener="#" styleClass="ui-priority-primary" /> -->
@@ -63,17 +64,17 @@
 				          <h:form id="detailPack">
 			                <p:dialog header="Detail du pack" widgetVar="packDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 				            	<p:panelGrid  columns="4" id="detailPack" rendered="#{not empty packFiltrageBean.listeProduits}" columnClasses="label,value">
-				            		<ui:repeat value="#{packFiltrageBean.listeProduits}" var="list">
-						                <h:outputText value="#{list.id}" style="margin-right:15px" /> <br/>
+				            		<ui:repeat value="#{packFiltrageBean.listeProduits}" var="produit">
+						                <h:outputText value="#{produit.id}" style="margin-right:15px" /> <br/>
 						            </ui:repeat>
-						            <ui:repeat value="#{packFiltrageBean.listeProduits}" var="list">
-						                <h:outputText value="#{list.libelle}" style="margin-right:15px" /> <br/>
+						            <ui:repeat value="#{packFiltrageBean.listeProduits}" var="produit">
+						                <h:outputText value="#{produit.libelle}" style="margin-right:15px" /> <br/>
 					                </ui:repeat>
-					                <ui:repeat value="#{packFiltrageBean.listeProduits}" var="list">
-						                <h:outputText value="#{list.description}" style="margin-right:15px" /> <br/>
+					                <ui:repeat value="#{packFiltrageBean.listeProduits}" var="produit">
+						                <h:outputText value="#{produit.description}" style="margin-right:15px" /> <br/>
 					                </ui:repeat>
-					                <ui:repeat value="#{packFiltrageBean.listeProduits}" var="list">
-						                <h:outputText value="#{list.prix} €" style="margin-right:15px" /> <br/>
+					                <ui:repeat value="#{packFiltrageBean.listeProduits}" var="produit">
+						                <h:outputText value="#{produit.prix} €" style="margin-right:15px" /> <br/>
 					                </ui:repeat>
 						         </p:panelGrid>
 						    </p:dialog> 

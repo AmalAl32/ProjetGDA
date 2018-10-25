@@ -1,5 +1,6 @@
 package fr.afcepf.al32.web;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import fr.afcepf.al32.entity.Pack;
 import fr.afcepf.al32.entity.PackAssociation;
 import fr.afcepf.al32.service.IServiceAdministrateur;
@@ -17,19 +20,19 @@ import fr.afcepf.al32.service.IServicePack;
 
 @ManagedBean 
 @RequestScoped 
-public class ListePacksAssociationBean {
+public class ListePacksAssociationBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@ManagedProperty(value ="#{servicePackImpl}") //#{nomComposantJsfOuSpring} //nomClasseJava avec minuscule au debut
 	private IServicePack servicePack;
 	private List<PackAssociation> packs;
+	
+	@ManagedProperty(value = "#{connexionBean}")
+	private ConnexionBean user;
 
-	 
-
-	//la personne connectée
-	private ConnexionBean personne;
-	
-	
-	
+	private Long idAssoc ;
+	@Autowired
+	private Pack selectPack;
 //	@PostConstruct
 //	public void Init()
 //	{
@@ -38,19 +41,16 @@ public class ListePacksAssociationBean {
 	
 	@PostConstruct
 	public void init()
-	{		
-		//System.out.println("Id asso connecte :" + selectedPack.getId());
-		//packs = servicePack.rechercherPackAssociationParAssociation(selectedPack.getId());
-		packs = servicePack.rechercherPackAssociationParAssociation(10L);
-		
-		System.out.println("taille packs: " + packs.size());
-		System.out.println("contenue: " + packs.toString());
+	{	
+		idAssoc =  (Long)user.getUtilisateur().getId();
+		packs = servicePack.rechercherPackAssociationParAssociation(idAssoc);
 	}
 
 	public String supprimerPack()
 	{
 		String suite=null;	
-		servicePack.desactiverPack(13L);
+		System.out.println("id pack sup " + selectPack.getId() );
+		servicePack.desactiverPack(selectPack.getId());
 		return suite;
 	}
 
@@ -76,19 +76,31 @@ public class ListePacksAssociationBean {
 		this.packs = packs;
 	}
 
-
-	public ConnexionBean getPersonne() {
-		return personne;
+	public ConnexionBean getUser() {
+		return user;
 	}
 
-	public void setPersonne(ConnexionBean personne) {
-		this.personne = personne;
+	public void setUser(ConnexionBean user) {
+		this.user = user;
 	}
 
+	public Long getIdAssoc() {
+		return idAssoc;
+	}
 
+	public void setIdAssoc(Long idAssoc) {
+		this.idAssoc = idAssoc;
+	}
 
+	public Pack getSelectPack() {
+		return selectPack;
+	}
 
+	public void setSelectPack(Pack selectPack) {
+		this.selectPack = selectPack;
+	}
 
+	
 }
 
 	
