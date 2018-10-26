@@ -73,6 +73,7 @@ public abstract class Pack
 	@ManyToMany(mappedBy="packs")//LAZY par defaut
 	private List<Don> dons;
 	
+	
     public Pack(String libelle, Double prix) {
 		
 		this.libelle = libelle;

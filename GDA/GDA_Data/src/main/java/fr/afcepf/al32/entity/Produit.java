@@ -51,13 +51,15 @@ public abstract class Produit {
 	@ManyToMany(mappedBy="produits")
 	private List<Pack> packs;	
 	
+	
 	public Produit(String libelle, String libelleCourt, Double prix, String description) {		
 		this.libelle = libelle;
 		this.libelleCourt = libelleCourt;
 		this.prix = prix;
 		this.description = description;
 	}
-	
+
+
 	
 	
 }
