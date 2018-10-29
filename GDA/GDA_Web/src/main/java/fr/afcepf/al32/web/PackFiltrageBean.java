@@ -26,7 +26,7 @@ public class PackFiltrageBean {
 	
 	List<PackAssociation> listePacks;	
 	List<Produit> listeProduits;
-	
+	@Autowired
 	private PackAssociation selectedPackAssociation; 
 	
 	

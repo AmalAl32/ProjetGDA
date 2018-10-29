@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.afcepf.al32.entity.Pack;
 import fr.afcepf.al32.entity.PackAssociation;
+import fr.afcepf.al32.entity.Produit;
 import fr.afcepf.al32.service.IServiceAdministrateur;
 import fr.afcepf.al32.service.IServicePack;
+import fr.afcepf.al32.service.IServiceProduit;
 
 
 @ManagedBean 
@@ -25,14 +27,20 @@ public class ListePacksAssociationBean implements Serializable {
 	
 	@ManagedProperty(value ="#{servicePackImpl}") //#{nomComposantJsfOuSpring} //nomClasseJava avec minuscule au debut
 	private IServicePack servicePack;
-	private List<PackAssociation> packs;
+	
+	@ManagedProperty(value ="#{serviceProduitImpl}")	
+	private IServiceProduit serviceProduit;	
 	
 	@ManagedProperty(value = "#{connexionBean}")
 	private ConnexionBean user;
 
+	private List<PackAssociation> packs;
+	List<Produit> listeProduits;
 	private Long idAssoc ;
 	@Autowired
 	private Pack selectPack;
+	
+	
 //	@PostConstruct
 //	public void Init()
 //	{
@@ -46,6 +54,18 @@ public class ListePacksAssociationBean implements Serializable {
 		packs = servicePack.rechercherPackAssociationParAssociation(idAssoc);
 	}
 
+	//Pack possede des produits
+	public String recupererListeProduits() {		
+		String suite=null;
+		System.out.println("recuprer liste produit");
+		System.out.println("id pack " + selectPack.getId());
+		listeProduits = serviceProduit.rechercherPackAvecProduits(selectPack.getId());	
+		System.out.println("taille listeProduits: " + listeProduits.size());
+		System.out.println("contenue listeProduits: " + listeProduits.toString() );
+		suite="testListe";
+		return suite;
+	}
+	
 	public String supprimerPack()
 	{
 		String suite=null;	
@@ -98,6 +118,22 @@ public class ListePacksAssociationBean implements Serializable {
 
 	public void setSelectPack(Pack selectPack) {
 		this.selectPack = selectPack;
+	}
+
+	public IServiceProduit getServiceProduit() {
+		return serviceProduit;
+	}
+
+	public void setServiceProduit(IServiceProduit serviceProduit) {
+		this.serviceProduit = serviceProduit;
+	}
+
+	public List<Produit> getListeProduits() {
+		return listeProduits;
+	}
+
+	public void setListeProduits(List<Produit> listeProduits) {
+		this.listeProduits = listeProduits;
 	}
 
 	
