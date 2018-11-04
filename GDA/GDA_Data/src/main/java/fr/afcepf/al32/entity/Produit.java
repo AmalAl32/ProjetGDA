@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.DiscriminatorColumn;
@@ -33,7 +34,7 @@ import lombok.ToString;
 	@NamedQuery(name="Produit.findByTypeProduit", 
 			query="SELECT prod FROM TypeProduit t INNER JOIN t.produits prod WHERE t.id = :idTypeProduit")	
 })
-public abstract class Produit {
+public abstract class Produit implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

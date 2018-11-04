@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -47,8 +48,7 @@ import lombok.ToString;
 																		+ "And c.association.id = :id "
 																		+ " and c.dateRetrait is null")
 })
-public abstract class Pack 
-{
+public abstract class Pack implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;

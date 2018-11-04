@@ -1,6 +1,7 @@
 package fr.afcepf.al32.entity;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -17,8 +18,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @DiscriminatorValue("Donateur")//valeur de typePersonne pour cette classe
-public class Donateur extends Personne 
-{
+public class Donateur extends Personne implements Serializable{
 	private String coordonneesBancaires;
 	
 	@OneToMany(mappedBy="donateur",fetch=FetchType.LAZY)//mappedBy = nom "java" de la relation inverse 

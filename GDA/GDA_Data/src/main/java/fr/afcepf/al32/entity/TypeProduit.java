@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,8 +16,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class TypeProduit 
-{
+public class TypeProduit implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;

@@ -8,23 +8,25 @@ import javax.faces.bean.SessionScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import fr.afcepf.al32.entity.Pack;
 import fr.afcepf.al32.entity.PackAssociation;
 import fr.afcepf.al32.entity.Personne;
 import fr.afcepf.al32.entity.Produit;
 import fr.afcepf.al32.service.IServicePack;
+import fr.afcepf.al32.service.IServicePackAssociation;
 import fr.afcepf.al32.service.IServiceProduit;
 
 @ManagedBean  
 @SessionScoped
 public class PackFiltrageBean {
 	
-	@ManagedProperty("#{servicePackImpl}")	
-	private IServicePack servicePackAssociation;
+	@ManagedProperty("#{servicePackAssociation}")	
+	private IServicePackAssociation servicePackAssociation;
 	
 	@ManagedProperty("#{serviceProduitImpl}")	
 	private IServiceProduit serviceProduit;		
 	
-	List<PackAssociation> listePacks;	
+	List<Pack> listePacks;	
 	List<Produit> listeProduits;
 	@Autowired
 	private PackAssociation selectedPackAssociation; 
@@ -39,7 +41,7 @@ public class PackFiltrageBean {
 		else {
 			listePacks = servicePackAssociation.rechercherPackAssociationParAssociation(1L);			
 		}
-		for (PackAssociation packAssociation : listePacks) {
+		for (Pack packAssociation : listePacks) {
 			packAssociation.setProduits(serviceProduit.rechercherPackAvecProduits(packAssociation.getId()));
 		}
 		//listeProduits = serviceProduit.rechercherPackAvecProduits(1);	
@@ -86,19 +88,21 @@ public class PackFiltrageBean {
 		this.listeProduits = listeProduits;
 	}
 
-	public IServicePack getServicePackAssociation() {
+	
+
+	public IServicePackAssociation getServicePackAssociation() {
 		return servicePackAssociation;
 	}
 
-	public void setServicePackAssociation(IServicePack servicePackAssociation) {
+	public void setServicePackAssociation(IServicePackAssociation servicePackAssociation) {
 		this.servicePackAssociation = servicePackAssociation;
 	}
 
-	public List<PackAssociation> getListePacks() {
+	public List<Pack> getListePacks() {
 		return listePacks;
 	}
 
-	public void setListePacks(List<PackAssociation> listePacks) {
+	public void setListePacks(List<Pack> listePacks) {
 		this.listePacks = listePacks;
 	}
 

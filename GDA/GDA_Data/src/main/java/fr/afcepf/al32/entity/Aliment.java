@@ -1,5 +1,7 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,7 +12,7 @@ import lombok.Setter;
 
 @Entity @Getter @Setter
 @DiscriminatorValue("A")
-public class Aliment extends Produit {
+public class Aliment extends Produit implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="idNatureAliment")

@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity @Getter @Setter
-public class NatureVetement {
+public class NatureVetement implements Serializable {
 
 	@Id
 	private Long id;

@@ -1,6 +1,7 @@
 
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @DiscriminatorValue("Association")//valeur de typePersonne pour cette classe
-public class Association extends Personne {
+public class Association extends Personne implements Serializable {
 
 	private String raisonSociale;
 

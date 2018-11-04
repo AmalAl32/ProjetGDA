@@ -17,16 +17,18 @@ import fr.afcepf.al32.entity.PackAssociation;
 import fr.afcepf.al32.entity.Produit;
 import fr.afcepf.al32.service.IServiceAdministrateur;
 import fr.afcepf.al32.service.IServicePack;
+import fr.afcepf.al32.service.IServicePackAssociation;
 import fr.afcepf.al32.service.IServiceProduit;
 
 
 @ManagedBean 
 @RequestScoped 
 public class ListePacksAssociationBean implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
-	@ManagedProperty(value ="#{servicePackImpl}") //#{nomComposantJsfOuSpring} //nomClasseJava avec minuscule au debut
-	private IServicePack servicePack;
+	@ManagedProperty(value ="#{servicePackAssociation}") //#{nomComposantJsfOuSpring} //nomClasseJava avec minuscule au debut
+	private IServicePackAssociation servicePackAssociation;
 	
 	@ManagedProperty(value ="#{serviceProduitImpl}")	
 	private IServiceProduit serviceProduit;	
@@ -34,8 +36,9 @@ public class ListePacksAssociationBean implements Serializable {
 	@ManagedProperty(value = "#{connexionBean}")
 	private ConnexionBean user;
 
-	private List<PackAssociation> packs;
-	List<Produit> listeProduits;
+	private List<Pack> packs;
+	private boolean ajoutOk =true;
+	private List<Produit> listeProduits;
 	private Long idAssoc ;
 	@Autowired
 	private Pack selectPack;
@@ -51,17 +54,22 @@ public class ListePacksAssociationBean implements Serializable {
 	public void init()
 	{	
 		idAssoc =  (Long)user.getUtilisateur().getId();
-		packs = servicePack.rechercherPackAssociationParAssociation(idAssoc);
+		packs = servicePackAssociation.rechercherPackAssociationParAssociation(idAssoc);
+		if (packs.size()<5)
+			ajoutOk =true;
+		else ajoutOk=false;
+		
+		System.out.println("nombre packs : " + packs.size());
 	}
 
 	//Pack possede des produits
 	public String recupererListeProduits() {		
 		String suite=null;
-		System.out.println("recuprer liste produit");
-		System.out.println("id pack " + selectPack.getId());
+//		System.out.println("recuprer liste produit");
+//		System.out.println("id pack " + selectPack.getId());
 		listeProduits = serviceProduit.rechercherPackAvecProduits(selectPack.getId());	
-		System.out.println("taille listeProduits: " + listeProduits.size());
-		System.out.println("contenue listeProduits: " + listeProduits.toString() );
+//		System.out.println("taille listeProduits: " + listeProduits.size());
+//		System.out.println("contenue listeProduitsss: " + listeProduits.toString() );
 		suite="testListe";
 		return suite;
 	}
@@ -70,29 +78,25 @@ public class ListePacksAssociationBean implements Serializable {
 	{
 		String suite=null;	
 		System.out.println("id pack sup " + selectPack.getId() );
-		servicePack.desactiverPack(selectPack.getId());
+		servicePackAssociation.desactiverPackAssociation(selectPack.getId());
 		return suite;
 	}
 
-	public IServicePack getServicePack() {
-		return servicePack;
+	
+
+	public IServicePackAssociation getServicePackAssociation() {
+		return servicePackAssociation;
 	}
 
-
-
-	public void setServicePack(IServicePack servicePack) {
-		this.servicePack = servicePack;
+	public void setServicePackAssociation(IServicePackAssociation servicePackAssociation) {
+		this.servicePackAssociation = servicePackAssociation;
 	}
 
-
-
-	public List<PackAssociation> getPacks() {
+	public List<Pack> getPacks() {
 		return packs;
 	}
 
-
-
-	public void setPacks(List<PackAssociation> packs) {
+	public void setPacks(List<Pack> packs) {
 		this.packs = packs;
 	}
 
@@ -135,6 +139,16 @@ public class ListePacksAssociationBean implements Serializable {
 	public void setListeProduits(List<Produit> listeProduits) {
 		this.listeProduits = listeProduits;
 	}
+
+	public boolean isAjoutOk() {
+		return ajoutOk;
+	}
+
+	public void setAjoutOk(boolean ajoutOk) {
+		this.ajoutOk = ajoutOk;
+	}
+
+
 
 	
 }

@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Entity
 @DiscriminatorValue("Administrateur")
 @Getter @Setter @NoArgsConstructor
-public class Administrateur extends Personne{
+public class Administrateur  extends Personne implements Serializable{
 
 	private Date dateDebut;
 	

@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -15,8 +16,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @DiscriminatorValue("PackDonateur")
-public class PackDonateur extends Pack 
-{
+public class PackDonateur extends Pack implements Serializable{
 	 private Date dateModification;
 	
 	 @ManyToOne

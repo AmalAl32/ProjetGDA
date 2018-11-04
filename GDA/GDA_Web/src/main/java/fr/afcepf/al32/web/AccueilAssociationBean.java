@@ -15,7 +15,7 @@ import org.primefaces.model.DualListModel;
 import fr.afcepf.al32.entity.Pack;
 import fr.afcepf.al32.entity.PackAssociation;
 import fr.afcepf.al32.entity.Produit;
-import fr.afcepf.al32.service.IServicePack;
+import fr.afcepf.al32.service.IServicePackAssociation;
 import fr.afcepf.al32.service.IServiceProduit;
 import fr.afcepf.al32.service.IServiceTypeProduit;
 
@@ -39,15 +39,16 @@ public class AccueilAssociationBean implements Serializable {
 	@ManagedProperty("#{serviceProduitImpl}")
 	private IServiceProduit serviceProduit;
 	
-	@ManagedProperty("#{servicePackImpl}")
-	private IServicePack servicePack;
+	@ManagedProperty("#{servicePackAssociation}")
+	private IServicePackAssociation servicePackAssociation;
 	
 	@ManagedProperty("#{serviceTypeProduit}")
 	private IServiceTypeProduit serviceTypeProduit;
 	
 	@PostConstruct
 	public void init() {
-		produitsSource = serviceProduit.rechercherProduitDuType(1);
+		//par defaut 0 pour avoir fromulaire vide
+		produitsSource = serviceProduit.rechercherProduitDuType(0);
 		produitsPack = new ArrayList<Produit>();
 		produits = new DualListModel<Produit>(produitsSource, produitsPack);
 	}
@@ -63,7 +64,7 @@ public class AccueilAssociationBean implements Serializable {
 		pack.setProduits(produitsPack);
 		pack.setTypeProduit(serviceTypeProduit.rechercherTypeProduit(idTypeProduit));
 		
-		servicePack.ajouterPack(pack);
+		servicePackAssociation.ajouterPackAssociation(pack);
 	}
 
 	public Long getId() {
@@ -98,12 +99,14 @@ public class AccueilAssociationBean implements Serializable {
 		this.produits = produits;
 	}
 
-	public IServicePack getServicePack() {
-		return servicePack;
+	
+
+	public IServicePackAssociation getServicePackAssociation() {
+		return servicePackAssociation;
 	}
 
-	public void setServicePack(IServicePack servicePack) {
-		this.servicePack = servicePack;
+	public void setServicePackAssociation(IServicePackAssociation servicePackAssociation) {
+		this.servicePackAssociation = servicePackAssociation;
 	}
 
 	public IServiceTypeProduit getServiceTypeProduit() {

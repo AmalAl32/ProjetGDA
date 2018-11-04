@@ -4,13 +4,10 @@ package fr.afcepf.al32.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import fr.afcepf.al32.dao.IPersonneDao;
-import fr.afcepf.al32.dao.PersonneDaoJpa;
 import fr.afcepf.al32.entity.Administrateur;
-import fr.afcepf.al32.entity.Donateur;
 import fr.afcepf.al32.entity.Personne;
 
 @Service

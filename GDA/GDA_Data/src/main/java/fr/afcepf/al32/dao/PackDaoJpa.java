@@ -18,31 +18,31 @@ public class PackDaoJpa implements IPackDao {
 	private EntityManager entityManager;
 
 	@Override
-	public List<PackAssociation> findAllPackAssociation() {
-		return entityManager.createNamedQuery("PackAssociationfindAll", PackAssociation.class)
+	public List<Pack> findAllPack() {
+		return entityManager.createNamedQuery("PackAssociationfindAll", Pack.class)
 				            .getResultList();			
 	}	
 
 	
 	@Override
-	public List<PackAssociation> findAllPackAssociationByType(Long idType) {
-		return entityManager.createNamedQuery("PackAssociation.findAllByType", PackAssociation.class)
+	public List<Pack> findAllPackByType(Long idType) {
+		return entityManager.createNamedQuery("PackAssociation.findAllByType", Pack.class)
 							.setParameter("idType", idType)
         					.getResultList();		
 	}
 
 
 	@Override
-	public List<PackAssociation> findAllPackAssociationByAssociation(Long id) {
-		return entityManager.createNamedQuery("PackAssociation.findAllByAssociation", PackAssociation.class)
+	public List<Pack> findAllPackByAssociation(Long id) {
+		return entityManager.createNamedQuery("PackAssociation.findAllByAssociation", Pack.class)
 							.setParameter("id", id)
 							.getResultList();	
 	}
 
 
 	@Override
-	public List<PackAssociation> findAllPackAssociationByAssociationAndType(Long id, Long idType) {
-		return entityManager.createNamedQuery("PackAssociation.findAllByAssociationAndType", PackAssociation.class)
+	public List<Pack> findAllPackByAssociationAndType(Long id, Long idType) {
+		return entityManager.createNamedQuery("PackAssociation.findAllByAssociationAndType", Pack.class)
 							.setParameter("idType", idType)
 							.setParameter("id", id)
 							.getResultList();

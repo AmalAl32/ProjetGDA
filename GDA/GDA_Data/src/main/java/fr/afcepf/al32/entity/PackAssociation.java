@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +24,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @DiscriminatorValue("PackAssociation")
-public class PackAssociation extends Pack 
-{
+public class PackAssociation extends Pack implements Serializable{
 	 private Date dateAjout;
 	 
 	 private Date dateRetrait;

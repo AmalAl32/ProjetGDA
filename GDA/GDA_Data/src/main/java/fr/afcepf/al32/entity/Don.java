@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import lombok.Setter;
 })
 @Entity
 @Getter @Setter  @NoArgsConstructor @AllArgsConstructor
-public class Don 
+public class Don implements Serializable
 {
 	
 	@Id

@@ -1,5 +1,7 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -43,8 +45,7 @@ import lombok.ToString;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="typePersonne",
                      discriminatorType=DiscriminatorType.STRING)
-public abstract class Personne 
-{
+public abstract class Personne implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;

@@ -1,5 +1,6 @@
 package fr.afcepf.al32.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import lombok.Setter;
 })							
 @Entity
 @Getter @Setter @NoArgsConstructor
-public class PaysAide {
+public class PaysAide implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
