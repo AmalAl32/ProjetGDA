@@ -65,12 +65,7 @@ public class ListePacksAssociationBean implements Serializable {
 	//Pack possede des produits
 	public String recupererListeProduits() {		
 		String suite=null;
-//		System.out.println("recuprer liste produit");
-//		System.out.println("id pack " + selectPack.getId());
-		listeProduits = serviceProduit.rechercherPackAvecProduits(selectPack.getId());	
-//		System.out.println("taille listeProduits: " + listeProduits.size());
-//		System.out.println("contenue listeProduitsss: " + listeProduits.toString() );
-		suite="testListe";
+		listeProduits = serviceProduit.rechercherPackAvecProduits(selectPack.getId());
 		return suite;
 	}
 	

@@ -20,13 +20,14 @@
 		
         <ui:define name="content">
         	
-        	<h:form>
+        	<h:form id="form">
         	
 	        	<label>Type de produit :</label>
-				<h:selectOneRadio value = "#{accueilAssociationBean.idTypeProduit}" > 
+				<h:selectOneRadio value = "#{accueilAssociationBean.idTypeProduit}"  onclick="changerTypeProduit"> 
 				   <f:selectItem itemValue = "1" itemLabel = "Alimentaire"  /> 
 				   <f:selectItem itemValue = "3" itemLabel = "Educative" />
 				    <f:selectItem itemValue = "2" itemLabel = "Vestimentaire" />
+				    <f:ajax event="change"  onevent="{accueilAssociationBean.changerTypeProduit}" />
 				</h:selectOneRadio>
 				<h:commandButton value="Valider" actionListener="#{accueilAssociationBean.changerTypeProduit}" />
 			<br/>

@@ -32,7 +32,7 @@
 				            Liste des packs en ligne
 				        </f:facet>
 			 
-			        	<p:panel header="#{pack.libelle}" style="text-align:center">
+			        	<p:panel id ="result" header="#{pack.libelle}" style="text-align:center">
 			            	<h:panelGrid columns="1" style="width:100%">
 			                	<p:graphicImage name="img/#{pack.typeProduit.type}.jpg" height="109" width="135"/>
 			                	<h:outputText value="#{pack.prix}€" />
@@ -42,14 +42,16 @@
 			               
 			               <p:growl id="growl" life="2000" />
  							<p:growl id="Confirmation" showDetail="true" />						   
- 							 <p:commandLink value="Supprimer" action="#{listePacksAssociationBean.supprimerPack}"   reRender="pack"
-						    	   style="color:blue;   text-decoration:underline; font-weight: bold "  >
+ 							 <p:commandLink value="Supprimer" action="#{listePacksAssociationBean.supprimerPack}"  render="#{listePacksAssociationBean.packs}"
+						    	   style="color:blue;   text-decoration:underline; font-weight: bold ">
 						    	 <f:setPropertyActionListener value="#{pack}" target="#{listePacksAssociationBean.selectPack}" />
-						         <p:confirm header="Confirmation" message="Etes-vous sûr de vouloir supprimer ce pack ?" icon="ui-icon-alert" />
-						    </p:commandLink >						 
+						    	 <p:confirm header="Confirmation" message="Etes-vous sûr de vouloir supprimer ce pack ?" icon="ui-icon-alert" />
+						    </p:commandLink>						 
 						    
 						    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"   update="form" />
+						        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" > 
+						        <f:ajax render="@form"/> 
+						        </p:commandButton>   
 						        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						    </p:confirmDialog>
 						    

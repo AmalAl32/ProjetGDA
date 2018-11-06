@@ -54,12 +54,17 @@ public class AccueilAssociationBean implements Serializable {
 	}
 	
 	public void changerTypeProduit(ActionEvent e) {
+		System.out.println("changerTypeProduit");
 		produitsSource = serviceProduit.rechercherProduitDuType(idTypeProduit);
 		produitsPack = new ArrayList<Produit>();
 		produits = new DualListModel<Produit>(produitsSource, produitsPack);
 	}
 	
 	public void creerPack(ActionEvent e) {
+		System.out.println("libellePack : "+ libellePack);
+		System.out.println("prixPack : "+ prixPack);
+		System.out.println("produitsPack : "+ produitsPack.toString());
+		System.out.println("idTypeProduit : "+ idTypeProduit);
 		Pack pack = new PackAssociation(libellePack, prixPack);
 		pack.setProduits(produitsPack);
 		pack.setTypeProduit(serviceTypeProduit.rechercherTypeProduit(idTypeProduit));
