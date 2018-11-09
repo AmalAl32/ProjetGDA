@@ -46,6 +46,7 @@
 						    	   style="color:blue;   text-decoration:underline; font-weight: bold ">
 						    	 <f:setPropertyActionListener value="#{pack}" target="#{listePacksAssociationBean.selectPack}" />
 						    	 <p:confirm header="Confirmation" message="Etes-vous sûr de vouloir supprimer ce pack ?" icon="ui-icon-alert" />
+						    	 <f:ajax render="@form"/> 
 						    </p:commandLink>						 
 						    
 						    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

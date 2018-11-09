@@ -7,34 +7,28 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.model.DualListModel;
 
+import fr.afcepf.al32.entity.Association;
 import fr.afcepf.al32.entity.Pack;
 import fr.afcepf.al32.entity.PackAssociation;
 import fr.afcepf.al32.entity.Produit;
+import fr.afcepf.al32.entity.TypeProduit;
 import fr.afcepf.al32.service.IServicePackAssociation;
 import fr.afcepf.al32.service.IServiceProduit;
 import fr.afcepf.al32.service.IServiceTypeProduit;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class AccueilAssociationBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
-	private String libelle;
-	
-	private String libellePack;
-	private Double prix;
-	private Double prixPack;
-	private List<Produit> produitsSource;
-	private List<Produit> produitsPack;
-	private Long idTypeProduit;
-	
-	private DualListModel<Produit> produits;
+	@ManagedProperty("#{connexionBean}")
+	private ConnexionBean connexionBean;
 	
 	@ManagedProperty("#{serviceProduitImpl}")
 	private IServiceProduit serviceProduit;
@@ -45,6 +39,23 @@ public class AccueilAssociationBean implements Serializable {
 	@ManagedProperty("#{serviceTypeProduit}")
 	private IServiceTypeProduit serviceTypeProduit;
 	
+
+	
+	private Long id;
+	private String libelle;
+	
+	private String libellePack;
+	private Double prix;
+	private Double prixPack;
+	private List<Produit> produitsSource;
+	private List<Produit> produitsPack;
+	private Long idTypeProduit;
+	private TypeProduit typeProduit;	
+	private DualListModel<Produit> produits;
+	private Association association;
+	
+	
+	
 	@PostConstruct
 	public void init() {
 		//par defaut 0 pour avoir fromulaire vide
@@ -53,23 +64,53 @@ public class AccueilAssociationBean implements Serializable {
 		produits = new DualListModel<Produit>(produitsSource, produitsPack);
 	}
 	
-	public void changerTypeProduit(ActionEvent e) {
+	public void changerTypeProduit() {
 		System.out.println("changerTypeProduit");
 		produitsSource = serviceProduit.rechercherProduitDuType(idTypeProduit);
 		produitsPack = new ArrayList<Produit>();
 		produits = new DualListModel<Produit>(produitsSource, produitsPack);
 	}
 	
-	public void creerPack(ActionEvent e) {
-		System.out.println("libellePack : "+ libellePack);
-		System.out.println("prixPack : "+ prixPack);
-		System.out.println("produitsPack : "+ produitsPack.toString());
-		System.out.println("idTypeProduit : "+ idTypeProduit);
-		Pack pack = new PackAssociation(libellePack, prixPack);
-		pack.setProduits(produitsPack);
-		pack.setTypeProduit(serviceTypeProduit.rechercherTypeProduit(idTypeProduit));
+	
+	public String creerPack() {
+		String suite=null;		
 		
+			
+		/*Données pour créer un nouveau pack*/
+		
+		produitsPack =produits.getTarget();
+		prixPack=this.prixTotal(produitsPack);
+		typeProduit = serviceTypeProduit.rechercherTypeProduit(idTypeProduit);
+		association =(Association) connexionBean.getUtilisateur();
+		
+		Pack pack = new PackAssociation(libellePack, prixPack,typeProduit,produitsPack,association );
 		servicePackAssociation.ajouterPackAssociation(pack);
+		
+		/*Affichage */
+		System.out.println("methode: creer pack");
+		System.out.println("libellePack : "+ libellePack);
+		
+		System.out.println("prixPack : "+ prixPack);
+		System.out.println("produitsDual : "+ produits.toString());
+		System.out.println("idTypeProduit : "+ idTypeProduit);
+		System.out.println("liste produit pckcible : "+ produitsPack.toString());
+		
+		/*a supp*/	
+		
+		suite="packsAssociation";
+		return suite;
+	}
+	//calculer prix  total pack
+	
+	private Double prixTotal(List<Produit> produits)
+	{
+		Double prixT = 0d;
+		for(Produit p: produits)
+		{
+			prixT+=p.getPrix(); 
+		}
+		return prixT;		
+		
 	}
 
 	public Long getId() {

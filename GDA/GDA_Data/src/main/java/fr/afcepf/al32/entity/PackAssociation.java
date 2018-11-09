@@ -44,9 +44,10 @@ public class PackAssociation extends Pack implements Serializable{
 		this.dateAjout = new Timestamp( System.currentTimeMillis() );
 	 }
 	 
-	 public PackAssociation(String libelle, Double prix, TypeProduit typeProduit, List<Produit> produits) {
+	 public PackAssociation(String libelle, Double prix, TypeProduit typeProduit, List<Produit> produits,  Association association) {
 			super(libelle, prix, typeProduit, produits);
-			this.dateAjout = new Timestamp( System.currentTimeMillis() );		
+			this.dateAjout = new Timestamp( System.currentTimeMillis() );	
+			this.association = association;
 	 }
 
 	@Override

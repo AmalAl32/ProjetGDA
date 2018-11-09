@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,20 +28,20 @@ public class ListePacksAssociationBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@ManagedProperty(value ="#{servicePackAssociation}") //#{nomComposantJsfOuSpring} //nomClasseJava avec minuscule au debut
+	@ManagedProperty("#{servicePackAssociation}") //#{nomComposantJsfOuSpring} //nomClasseJava avec minuscule au debut
 	private IServicePackAssociation servicePackAssociation;
 	
-	@ManagedProperty(value ="#{serviceProduitImpl}")	
+	@ManagedProperty("#{serviceProduitImpl}")	
 	private IServiceProduit serviceProduit;	
 	
-	@ManagedProperty(value = "#{connexionBean}")
+	@ManagedProperty("#{connexionBean}")
 	private ConnexionBean user;
 
 	private List<Pack> packs;
 	private boolean ajoutOk =true;
 	private List<Produit> listeProduits;
 	private Long idAssoc ;
-	@Autowired
+	
 	private Pack selectPack;
 	
 	

@@ -49,6 +49,11 @@ import lombok.ToString;
 																		+ " and c.dateRetrait is null")
 })
 public abstract class Pack implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;

@@ -4,6 +4,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import fr.afcepf.al32.entity.Administrateur;
 import fr.afcepf.al32.entity.Association;
 import fr.afcepf.al32.entity.Donateur;
@@ -19,7 +21,7 @@ public class ConnexionBean
 	private String msg;
 	
 	private boolean redirectionHistorique = false;
-	
+		
 	private Personne utilisateur;
 
 	@ManagedProperty("#{serviceAdministrateur}")
@@ -103,6 +105,8 @@ public class ConnexionBean
 	public void setServiceAdministrateur(IServiceAdministrateur serviceAdministrateur) {
 		this.serviceAdministrateur = serviceAdministrateur;
 	}
+
+
 
 	public String getMsg() {
 		return msg;
