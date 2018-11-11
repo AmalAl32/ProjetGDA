@@ -1,5 +1,7 @@
 package fr.afcepf.al32.web;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -14,8 +16,12 @@ import fr.afcepf.al32.service.IServiceAdministrateur;
 
 @ManagedBean
 @SessionScoped 
-public class ConnexionBean 
+public class ConnexionBean implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String login;
 	private String password;
 	private String msg;
@@ -26,6 +32,8 @@ public class ConnexionBean
 
 	@ManagedProperty("#{serviceAdministrateur}")
 	private IServiceAdministrateur serviceAdministrateur;
+	
+	public ConnexionBean() {}
 	
 	public String login()
 	{

@@ -9,13 +9,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DualListModel;
 
 import fr.afcepf.al32.entity.Association;
 import fr.afcepf.al32.entity.Pack;
 import fr.afcepf.al32.entity.PackAssociation;
+import fr.afcepf.al32.entity.Personne;
 import fr.afcepf.al32.entity.Produit;
 import fr.afcepf.al32.entity.TypeProduit;
 import fr.afcepf.al32.service.IServicePackAssociation;
@@ -23,12 +24,13 @@ import fr.afcepf.al32.service.IServiceProduit;
 import fr.afcepf.al32.service.IServiceTypeProduit;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class AccueilAssociationBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManagedProperty("#{connexionBean}")
-	private ConnexionBean connexionBean;
+	private ConnexionBean user;
+	//private Personne user = (Personne) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
 	
 	@ManagedProperty("#{serviceProduitImpl}")
 	private IServiceProduit serviceProduit;
@@ -59,6 +61,7 @@ public class AccueilAssociationBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		//par defaut 0 pour avoir fromulaire vide
+		System.out.println("init acceuil association");
 		produitsSource = serviceProduit.rechercherProduitDuType(0);
 		produitsPack = new ArrayList<Produit>();
 		produits = new DualListModel<Produit>(produitsSource, produitsPack);
@@ -81,10 +84,10 @@ public class AccueilAssociationBean implements Serializable {
 		produitsPack =produits.getTarget();
 		prixPack=this.prixTotal(produitsPack);
 		typeProduit = serviceTypeProduit.rechercherTypeProduit(idTypeProduit);
-		association =(Association) connexionBean.getUtilisateur();
+		association =(Association) user.getUtilisateur();
 		
 		Pack pack = new PackAssociation(libellePack, prixPack,typeProduit,produitsPack,association );
-		servicePackAssociation.ajouterPackAssociation(pack);
+		
 		
 		/*Affichage */
 		System.out.println("methode: creer pack");
@@ -93,9 +96,16 @@ public class AccueilAssociationBean implements Serializable {
 		System.out.println("prixPack : "+ prixPack);
 		System.out.println("produitsDual : "+ produits.toString());
 		System.out.println("idTypeProduit : "+ idTypeProduit);
-		System.out.println("liste produit pckcible : "+ produitsPack.toString());
+		
+		for(Produit p: produitsPack)
+		{
+			System.out.println("liste produit pckcible : "+ p.toString());		
+		}
+		System.out.println("association: "+ user.toString()+"  id : " +association.getId());
 		
 		/*a supp*/	
+		
+		servicePackAssociation.ajouterPackAssociation(pack);
 		
 		suite="packsAssociation";
 		return suite;
@@ -215,4 +225,29 @@ public class AccueilAssociationBean implements Serializable {
 		this.libellePack = libellePack;
 	}
 
+	public ConnexionBean getUser() {
+		return user;
+	}
+
+	public void setUser(ConnexionBean user) {
+		this.user = user;
+	}
+
+	public TypeProduit getTypeProduit() {
+		return typeProduit;
+	}
+
+	public void setTypeProduit(TypeProduit typeProduit) {
+		this.typeProduit = typeProduit;
+	}
+
+	public Association getAssociation() {
+		return association;
+	}
+
+	public void setAssociation(Association association) {
+		this.association = association;
+	}
+
+	
 }
