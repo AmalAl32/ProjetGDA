@@ -101,10 +101,11 @@ public class AccueilAssociationBean implements Serializable {
 		{
 			System.out.println("liste produit pckcible : "+ p.toString());		
 		}
-		System.out.println("association: "+ user.toString()+"  id : " +association.getId());
+		System.out.println("association: "+ user.toString()+"  id : " +association.getId()  +association.getRaisonSociale());
+		System.out.println("Pack: "+ pack.getLibelle() + " " + pack.toString());
 		
 		/*a supp*/	
-		
+		pack.setId(null);
 		servicePackAssociation.ajouterPackAssociation(pack);
 		
 		suite="packsAssociation";

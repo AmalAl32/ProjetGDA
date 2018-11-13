@@ -67,7 +67,7 @@ public abstract class Pack implements Serializable{
 	private TypeProduit typeProduit;
 	
 	@ManyToMany(cascade = { 
-	        CascadeType.PERSIST, 
+	        //CascadeType.PERSIST, 
 	        CascadeType.MERGE
 	    })
 	@JoinTable(name="Pack_Produit",

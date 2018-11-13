@@ -25,7 +25,12 @@ import lombok.Setter;
 @Getter @Setter
 @DiscriminatorValue("PackAssociation")
 public class PackAssociation extends Pack implements Serializable{
-	 private Date dateAjout;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Date dateAjout;
 	 
 	 private Date dateRetrait;
 	 
