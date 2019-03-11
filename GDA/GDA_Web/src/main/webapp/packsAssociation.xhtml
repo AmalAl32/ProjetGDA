@@ -10,7 +10,7 @@
 <!-- c la page qui affiche la liste des packs d une association données -->	
 	<h:body>
 
-      <ui:composition template="/templates/commonAssociation.xhtml">
+      <ui:composition template="/templates/common#{connexionBean.typeUser}.xhtml">
       	
       	<ui:define name="title">Liste packs association</ui:define>
       	
@@ -25,14 +25,14 @@
       
       	<h:form id="form">
 
-			    	<p:dataGrid var="pack" value="#{listePacksAssociationBean.packs}" columns="3" layout="grid"
+			    	<p:dataGrid style="ui-datagrid" var="pack" value="#{listePacksAssociationBean.packs}" columns="3" layout="grid"
 				        rows="5"  id="pack">
 				 
-				        <f:facet name="header">
+				        <f:facet  name="header" >
 				            Liste des packs en ligne
 				        </f:facet>
 			 
-			        	<p:panel id ="result" header="#{pack.libelle}" style="text-align:center">
+			        	<p:panel styleClass="customTitleBar" id ="result" header="#{pack.libelle}" style="text-align:center">
 			            	<h:panelGrid columns="1" style="width:100%">
 			                	<p:graphicImage name="img/#{pack.typeProduit.type}.jpg" height="109" width="135"/>
 			                	<h:outputText value="#{pack.prix}€" />

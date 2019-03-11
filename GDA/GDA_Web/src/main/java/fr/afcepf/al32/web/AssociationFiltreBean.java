@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import fr.afcepf.al32.entity.Association;
+import fr.afcepf.al32.entity.Pack;
 import fr.afcepf.al32.entity.Personne;
 import fr.afcepf.al32.service.IServiceAssociation;
 
@@ -22,6 +24,8 @@ public class AssociationFiltreBean {
 	private Long idPays;
 	private double prixMin;
 	private double prixMax;
+	private Association selectAssociation;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -100,6 +104,14 @@ public class AssociationFiltreBean {
 
 	public void setPrixMax(double prixMax) {
 		this.prixMax = prixMax;
+	}
+
+	public Association getSelectAssociation() {
+		return selectAssociation;
+	}
+
+	public void setSelectAssociation(Association selectAssociation) {
+		this.selectAssociation = selectAssociation;
 	}
 	
 }

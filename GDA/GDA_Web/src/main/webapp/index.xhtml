@@ -4,29 +4,68 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
 	
 	
 	<h:body>
       <ui:composition template="/templates/common.xhtml">
+      <ui:define name="css">
+      	
+      		<h:outputStylesheet name="css/style.css" />
+      		<h:outputStylesheet name="css/associationDetails.css" />
+      		
+		</ui:define>
+		
       	
       	<ui:define name="title">Accueil</ui:define>
-        
-        <ui:define name="content">
+         <ui:define name="content">
         	<h2>Accueil</h2>
         	<h3>Qui sommes-nous ?</h3>				
             <div>
+            <b:image  name="Valladolid4.png" value = "resources/img/resum.jpg" tooltip="Qui sommes-nous" tooltipPosition="center" />
+            
 				Le but de [NomApplication] est de permettre à des internautes de faire des dons à des associations afin d’aider les personnes dans le besoin. 
 				Les dons sont des produits alimentaires, vestimentaires et/ou fournitures scolaires que le client choisi d’acheter sur l’application. Les associations se chargent de reverser les dons aux bénéficiaires.
 				
 			</div>
-            <br/>
-            <h3>Statistiques</h3>				
-            <div>
-				<label>Nombre total de dons : </label><output>2518</output><br/>
-				<label>Estimation (€) : </label><output>41215.50€</output>
+			<div style="text-align:center">
+			  <h2>Responsive Zig Zag Layout Example</h2>
+			  <p>Resize the browser window to see the effect.</p>
 			</div>
+			
+			<!-- The App Section -->
+			<div class="containerDetails">
+			  <div class="row">
+			    <div class="column-66">
+			      <h1 class="xlarge-font"><b>The App</b></h1>
+			      <h1 class="large-font" style="color:MediumSeaGreen;"><b>Why buy it?</b></h1>
+			      <p><span style="font-size:36px">Take photos like a pro.</span> You should buy this app because lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			      <button class="button">Download Application</button>
+			    </div>
+			    <div class="column-33">
+			        <img src="img/image.jpg" width="335" height="471"/>
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- Clarity Section -->
+			<div class="containerDetails" style="background-color:#f1f1f1">
+			  <div class="row">
+			    <div class="column-33">
+			      <img src="img/image.jpg" alt="App" width="335" height="471"/>
+			    </div>
+			    <div class="column-66">
+			      <h1 class="xlarge-font"><b>Clarity</b></h1>
+			      <h1 class="large-font" style="color:red;"><b>Pixels, who?</b></h1>
+			      <p><span style="font-size:24px">A revolution in resolution.</span> Sharp and clear photos with the world's best photo engine, incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquipex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+			      <button class="button" style="background-color:red">Read More</button>
+			    </div>
+			  </div>
+			</div>
+            
         </ui:define>
+        
         
       </ui:composition>
    </h:body>	

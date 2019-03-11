@@ -13,9 +13,9 @@
 	        <b:navBar brand="GDA Administrateur" brandHref="accueilAdmin.jsf" position="top" sticky="true" 
 	        style="background:#ff8000;color:white;">
 	            <b:navbarLinks pull="right">
-	            	<b:navLink value="Associations" href="associationVerification.jsf" style="color:#ffffff;"></b:navLink>
-	            	<b:navLink value="Donateurs" href="listeDonateurs.jsf" style="color:#ffffff;"></b:navLink>
-	                <b:navLink value="Deconnexion" href="index.jsf" iconAwesome="fa-unlock-alt" style="color:#ffffff;"></b:navLink>
+	            	<b:navLink value="ASSOCIATIONS" onclick="ajax:navLinkBean.navigateToPage(0, 'b:navLink')" href="associationVerification.jsf" ></b:navLink>
+	            	<b:navLink value="DONNATEUR" onclick="ajax:navLinkBean.navigateToPage(1, 'b:navLink')" href="listeDonateurs.jsf" ></b:navLink>
+	                <b:navLink value="DECONNEXION" onclick="ajax:navLinkBean.navigateToPage(2, 'b:navLink')"  href="index.jsf" iconAwesome="fa-unlock-alt" ></b:navLink>
 	            </b:navbarLinks>
 	        </b:navBar>
         </h:body>

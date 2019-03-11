@@ -1,23 +1,203 @@
-<!DOCTYPE html>
-
-<html lang="fr"
-	xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
-	
-	
-	<h:body>
-      <ui:composition template="/templates/common.xhtml">
-      	
-      	<ui:define name="title">Panier</ui:define>
-        
-        <ui:define name="content">
-        	<h2>Panier</h2>		
-            <div>Blablablablablablablablablablablablablablablablablablablablabla</div>
-        </ui:define>
-        
-      </ui:composition>
-   </h:body>	
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
+<ui:composition template="/templates/common.xhtml">
+	<!-- Elements nécessaires pour cette page, titre, css, scripts-->
+	<ui:define name="titre">Captain Cook - Panier</ui:define>
+	<ui:define name="ton-css">
+		<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+	</ui:define>
+
+	<!-- Insertion du contenu de la page-->
+	<ui:define name="contenu">
+		<!-- Title Page -->
+		<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m titrePanier"
+			style="background-image: url(resources/images/header-panier.jpg);">
+		<h2 class="l-text2 t-center">Panier</h2>
+		</section>
+		<h:form name="formPanier">
+
+			<!-- Cart -->
+			<h:outputLabel value="Votre panier est vide."
+				rendered="#{mbPanier.commande == null}" />
+			<table id="cart" class="table  table-condensed">
+
+				<section class="cart bgwhite p-t-70 p-b-100">
+				<div class="container">
+
+					<p:repeat value="#{mbPanier.commande.abonnement}" var="abo"
+						varStatus="status"
+						rendered="#{mbPanier.commande.abonnement != null and mbPanier.commande.abonnement.isAjourPaiement() == false}">
+
+						<thead>
+							<tr>
+								<th style="width: 30%">Formule</th>
+								<th style="width: 10%">Prix par<br />personne
+								</th>
+								<th style="width: 10%">Nombre de<br />personnes
+								</th>
+								<th style="width: 10%">Recettes par<br />semaine
+								</th>
+								<th style="width: 15%" class="text-center">Sous-total</th>
+								<th style="width: 10%"></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td data-th="Formule">
+									<div class="row">
+										<div class="col-sm-3 hidden-xs">
+											<img src="#{abo.formule.image.cheminImage}" alt="Pas d'image"
+												class="img-fluid" />
+										</div>
+										<div class="col-sm-2 hidden-xs"><br/>
+											<p>#{abo.formule.libelle}</p>
+										</div>
+									</div>
+								</td>
+								<td data-th="Prix" value="#{abo.formule.prixParPersonne}">#{abo.formule.prixParPersonne}
+									€</td>
+
+
+
+								<td class="resp-flex" data-th="Abonnements">
+									<div class="ui-fluid">
+										<p:spinner id="persAbo" value="#{abo.nbPersonnes}" 
+											min="#{abo.formule.nbPersonnesMin}"
+											max="#{abo.formule.nbPersonnesMax}">
+											<p:ajax event="change"  update="montantAbonnement j_idt11:montantCmd" render="@form"
+												listener="#{mbPanier.modifierNbPersonneAbonnement}" />
+										</p:spinner>
+									</div>
+								</td>
+
+								<td class="resp-flex" data-th="Abonnements">
+									<div class="ui-fluid">
+										<p:spinner id="recAbo" value="#{abo.nbRecettes}"
+											min="#{abo.formule.nbRecettesMin}"
+											max="#{abo.formule.nbRecettesMax}">
+											<p:ajax event="change" update="montantAbonnement j_idt11:montantCmd" 
+												listener="#{mbPanier.modifierNbRecettesAbonnement}" />
+										</p:spinner>
+									</div>
+								</td>
+
+								<td data-th="Subtotal" class="text-center" format="number"
+									step="1"><h:outputText id="montantAbonnement"
+										value="#{abo.montantAbonnement} €" /></td>
+										
+								<td class="actions flex-c-m" data-th=""><h:commandButton
+										class="btn flex-c-m bg1 hov1 s-text1 trans-0-4 fa fa-trash-o"
+										action="#{mbPanier.supprimerAbonnement()}"
+										style="height:38px; width:42px; margin:25px"
+										image="/resources/images/icons/garbage.svg" update="paniercounter" actionListener="#{mbPanierAjax.updatePanier()}" /></td>
+							</tr>
+						</tbody>
+
+					</p:repeat>
+					<thead>
+						<tr>
+							<th style="width: 30%">Recette</th>
+							<th style="width: 10%">Prix par<br />personne
+							</th>
+							<th style="width: 10%">Nombre de<br />Personnes
+							</th>
+							<th style="width: 10%"></th>
+							<th style="width: 15%" class="text-center">Sous-total</th>
+							<th style="width: 10%"></th>
+						</tr>
+					</thead>
+
+				<p:repeat value="#{mbPanier.commande.listeLignesCommande}" var="lgn"
+					varStatus="index" id="lgnCmd">
+					<tbody>
+						<tr>
+							<td data-th="Produit">
+								<div class="row">
+									<div class="col-sm-3 hidden-xs">
+										<img src="#{lgn.recette.image.cheminImage}" alt="Pas d'image"
+											class="img-fluid" />
+									</div>
+									<div class="col-sm-2 hidden-xs"><br/>
+										<p>#{lgn.recette.libelle}</p><br/>
+										<p><span>Type :</span> #{lgn.recette.typesRecette.libelle}</p>
+									</div>
+								</div>
+							</td>
+							<td data-th="Prix" value="#{lgn.recette.prix}">#{lgn.recette.prix}
+								€</td>
+							<td class="resp-flex" data-th="Quantité">
+								<div class="ui-fluid">
+									<p:spinner id="pers" value="#{lgn.quantiteCommandee}" min="1"
+										max="#{lgn.recette.nbPersonne}">
+										<p:ajax event="change" update="montantLgnCmd j_idt11:montantCmd"
+											listener="#{mbPanier.modifierNbRecettesLgnCmd(lgn.id)}" />
+									</p:spinner>
+								</div>
+							</td>
+
+
+							<td></td>
+							<td data-th="Subtotal" class="text-center" format="number"
+								step="1"><h:outputText value="#{lgn.montantLgnCmd} €"
+									id="montantLgnCmd" /></td>
+							<td class="actions flex-c-m" data-th=""><h:commandButton
+									class="btn flex-c-m bg1 hov1 s-text1 trans-0-4 fa fa-trash-o"
+									action="#{mbPanier.supprimerLgnCmd(lgn.id)}"
+									style="height:38px; width:42px; margin:25px"
+									image="/resources/images/icons/garbage.svg" render="lgnCmd" />
+							</td>
+						</tr>
+					</tbody>
+				</p:repeat>
+				<tfoot>
+					<tr>
+						<td>
+							<div class="size11 bo4 m-b-10">
+								<h:inputText class="sizefull s-text7 p-l-22 p-r-22" type="text"
+									 name="coupon-code" placeholder="Code de réduction?" value ="#{mbPanier.codePromo}">
+									 </h:inputText>
+							</div></td>
+							<td>
+							<p:commandLink value="OK" action="#{mbPanier.appliquerReduction}" update="@form"
+											 title="ok"  
+											style="color:blue;margin-left: 10%;  text-decoration:underline; font-weight: bold ">
+											
+							</p:commandLink> 	
+						</td>
+						<td>
+						
+						<h:outputLabel value ="#{empty mbPanier.codePromo ? null : mbPanier.descriptionCodePromo}"></h:outputLabel></td>
+						<td colspan="2" class=""></td>
+						<td class="text-center"><strong>Total <h:outputText id="montantCmd" 
+						value= "#{empty mbPanier.codePromo or mbPanier.actif==false ? mbPanier.commande.montantCmd : mbPanier.prixReduit}" >
+						<f:convertNumber pattern="####.00€"/> </h:outputText></strong>
+						 </td>
+														
+
+														
+														
+						<td><h:commandButton type="button" id="btnContinuer"
+								class="btn btn-sm flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 p-b-10 p-t-10"
+								onclick="window.location='/CAPTAIN_WEB/InformationsLivraison.jsf';"
+								value="Valider ma commande" /></td>
+					</tr>
+				</tfoot>
+
+							
+
+				</div>
+				</section>
+			</table>
+		</h:form>
+	</ui:define>
+	<!-- Fin partie Contenu de la page-->
+
+</ui:composition>
 </html>

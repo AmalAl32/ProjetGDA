@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="fr"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+	<body>
+		<ui:composition> 															
+
+	    <h:body style="padding: 60px;">
+
+	        <b:navBar brand="Bienvenue: #{connexionBean.utilisateur.prenom} #{connexionBean.utilisateur.nom}" brandHref="accueilDonateur.jsf" position="top" sticky="true" 
+	        style="background:#87CEEB;"> 
+
+	            <b:navbarLinks pull="right">
+	            <b:pillLinks>
+	            	<b:navLink value="ACCUEIL" onclick="ajax:navLinkBean.navigateToPage(0, 'b:navLink')" href="accueilDonateur.jsf"></b:navLink>
+	            	<b:navLink value="ASSOCIATION" onclick="ajax:navLinkBean.navigateToPage(1, 'b:navLink')"  href="associations.jsf" ></b:navLink>
+	            	<b:navLink value="PACKS" onclick="ajax:navLinkBean.navigateToPage(2, 'b:navLink')" href="packsAssociation.jsf" ></b:navLink>          	  	
+	            	<b:navLink value="DONS RECUES" onclick="ajax:navLinkBean.navigateToPage(3, 'b:navLink')" href="#" ></b:navLink>
+	            	<b:navLink value="DECONNEXION" onclick="ajax:navLinkBean.navigateToPage(4, 'b:navLink')" href="index.jsf" iconAwesome="fa-unlock-alt" ></b:navLink>
+		         	<b:navLink onclick="ajax:navLinkBean.navigateToPage(5, 'b:navLink')" id="btnPanier" value="PANIER" iconAwesome="fa-shopping-cart" href="panier.jsf"   >
+						<span class="header-icons-noti"><h:outputText value="#{mbPanier.counter}" id="paniercounter"></h:outputText></span>
+					</b:navLink>
+				</b:pillLinks>
+	            </b:navbarLinks>
+	        </b:navBar>
+        </h:body>
+		</ui:composition>
+	</body>
+	
+</html>

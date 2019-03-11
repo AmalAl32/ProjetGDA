@@ -27,12 +27,17 @@
 		        style="background:#61afaf;" >
 		        	<input type="hidden" id="connexion" value="#{connexionBean.utilisateur.id}" />
 		            <b:navbarLinks pull="right">
-		                <b:navLink value="Accueil" href="index.jsf" style="color:#FFFFFF;"></b:navLink>
-		                <b:navLink value="Faire un don" href="associations.jsf" style="color:#FFFFFF;"></b:navLink>
-		                <b:navLink value="Panier" href="panier.jsf" style="color:#FFFFFF;"></b:navLink>
-		                <b:navLink value="Historique de dons" href="#{connexionBean.accesHistorique()}" style="color:#FFFFFF;"></b:navLink>
-		                <b:navLink value="Nous rejoindre" href="inscription.jsf" style="color:#FFFFFF;"></b:navLink>
-		                <b:navLink id="btnConnexion" value="Connexion" href="login.jsf" iconAwesome="fa-unlock-alt" style="color:#FFFFFF;"></b:navLink>
+		            	 <b:pillLinks>
+			                <b:navLink onclick="ajax:navLinkBean.navigateToPage(0, 'b:navLink')" value="ACCUIEL" href="index.jsf"  ></b:navLink>
+			                <b:navLink onclick="ajax:navLinkBean.navigateToPage(1, 'b:navLink')" value="ASSOCIATION" href="associations.jsf" ></b:navLink>
+			                <b:navLink onclick="ajax:navLinkBean.navigateToPage(2, 'b:navLink')" value="PACKS" href="associations.jsf" ></b:navLink>
+			                <b:navLink onclick="ajax:navLinkBean.navigateToPage(3, 'b:navLink')" id="btnConnexion" value="CONNEXION" href="login.jsf" iconAwesome="fa-unlock-alt" ></b:navLink>
+							<b:navLink onclick="ajax:navLinkBean.navigateToPage(4, 'b:navLink')" id="btnPanier" value="PANIER" iconAwesome="fa-shopping-cart" href="panier.jsf"   >
+									<span class="header-icons-noti"><h:outputText value="#{mbPanier.counter}" id="paniercounter"></h:outputText></span>
+							</b:navLink>	
+			           </b:pillLinks>
+		                             
+
 		            </b:navbarLinks>
 		        </b:navBar>
 	        </h:body>

@@ -5,12 +5,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 	
 	<h:body>
-      <ui:composition template="/templates/common.xhtml">
+      <ui:composition template="/templates/common#{connexionBean.typeUser}.xhtml">
       	
-      	<ui:define name="title">Associations</ui:define>
+      	<ui:define name="title">Associations </ui:define>
       	
       	<ui:define name="css">
       	
@@ -22,8 +23,8 @@
         <ui:define name="content">
         	
 			<div style="text-align:center">
-			  <h2>Responsive Zig Zag Layout Example</h2>
-			  <p>Resize the browser window to see the effect.</p>
+			  <h2>test #{associationFiltreBean.selectAssociation.id}</h2>
+			  <p></p>
 			</div>
 			
 			<!-- The App Section -->

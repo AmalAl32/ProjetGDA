@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<h:body>
-      <ui:composition template="/templates/common.xhtml">
+      <ui:composition template="/templates/common#{connexionBean.typeUser}.xhtml">
       	
       	<ui:define name="title">Associations</ui:define>
       	
@@ -23,7 +23,7 @@
 			<div id="navside">
 				<div id="filtre">
 					
-						<div class="titreFiltre">Filtrer par :</div>
+						<div class="titreFiltre#{connexionBean.typeUser}">Filtrer par :</div>
 						<h:form>
 						<h5>Type de besoin</h5>
 						<div class="containerFiltre" style="width:200px;">
@@ -61,18 +61,20 @@
 				</div>
 			</div>        
         	
-        	<h2>Associations</h2>
+<!--         	<h2>Associations</h2> -->
         	
             <div id="containerAssociation">
             	
             	<p:repeat var="a" value="#{associationFiltreBean.associationsFiltre}">
-            		<div class="elementAssociation">
+            		<div class="element#{connexionBean.typeUser}">
 	            	<div class="transbox" style="background-image:url('./resources/img/assos_#{a.id}.jpg')">
 	            		
 	            	</div>
 	            	<div><label>#{a.raisonSociale}</label></div>
 	            	<div>Pays cible : #{a.paysAide.libelle}</div>
-	            	<a href="associationDetails.jsf" class="button">Faire un Don</a>
+					<p:commandLink value="Faire un Don" action="#{faireUnDonBean.ouvrirPageDetail}" class="button">
+											<f:setPropertyActionListener value="#{a.id}" target="#{faireUnDonBean.selectAssociation}" />
+					</p:commandLink> 	
             	</div>
             	</p:repeat>
             	

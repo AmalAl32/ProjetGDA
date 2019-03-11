@@ -15,11 +15,15 @@
 	        style="background:#07c05a;"> 
 
 	            <b:navbarLinks pull="right">
-	            	<b:navLink value="Accueil" href="accueilAssociation.jsf" style="color:#ffffff;"></b:navLink>
-	            	<b:navLink value="Packs" href="packsAssociation.jsf"  style="color:#ffffff;"></b:navLink>          	  	
-	            	<b:navLink value="Dons recues" href="#" style="color:#ffffff;"></b:navLink>
-	            	<b:navLink value="Deconnexion" href="index.jsf" iconAwesome="fa-unlock-alt" style="color:#ffffff;"></b:navLink>
-
+	            <b:pillLinks>
+	            	<b:navLink value="ACCUEIL" onclick="ajax:navLinkBean.navigateToPage(0, 'b:navLink')" href="accueilAssociation.jsf"></b:navLink>
+	            	<b:navLink value="PACKS" onclick="ajax:navLinkBean.navigateToPage(1, 'b:navLink')" href="packsAssociation.jsf" ></b:navLink>          	  	
+	            	<b:navLink value="DONS RECUES" onclick="ajax:navLinkBean.navigateToPage(2, 'b:navLink')" href="#" ></b:navLink>
+	            	<b:navLink value="DECONNEXION" onclick="ajax:navLinkBean.navigateToPage(3, 'b:navLink')" href="index.jsf" iconAwesome="fa-unlock-alt" ></b:navLink>
+<!-- 		         	<b:navLink onclick="ajax:navLinkBean.navigateToPage(4, 'b:navLink')" id="btnPanier" value="PANIER" iconAwesome="fa-shopping-cart" href="panier.jsf"   > -->
+<!-- 						<span class="header-icons-noti"><h:outputText value="#{mbPanier.counter}" id="paniercounter"></h:outputText></span> -->
+<!-- 					</b:navLink> -->
+				</b:pillLinks>
 	            </b:navbarLinks>
 	        </b:navBar>
         </h:body>

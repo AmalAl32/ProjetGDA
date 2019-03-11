@@ -25,6 +25,7 @@ public class ConnexionBean implements Serializable
 	private String login;
 	private String password;
 	private String msg;
+	private String typeUser;
 	
 	private boolean redirectionHistorique = false;
 		
@@ -33,8 +34,9 @@ public class ConnexionBean implements Serializable
 	@ManagedProperty("#{serviceAdministrateur}")
 	private IServiceAdministrateur serviceAdministrateur;
 	
-	public ConnexionBean() {}
+	public ConnexionBean() {typeUser=null;}
 	
+
 	public String login()
 	{
 		Personne p = serviceAdministrateur.rechercherParConnexion(login, password);
@@ -47,6 +49,7 @@ public class ConnexionBean implements Serializable
 			{
 				utilisateur = (Donateur) p;
 				suite="accueilDonateur";
+				typeUser = "Donateur";
 				
 				if(redirectionHistorique)
 				{
@@ -59,11 +62,13 @@ public class ConnexionBean implements Serializable
 			{
 				utilisateur = (Association) p;
 				suite="accueilAssociation";
+				typeUser="Association";
 			}
 			else
 			{
 				utilisateur = (Administrateur) p;
 				suite="accueilAdmin";
+				typeUser="Administrateur";
 			}
 
 			
@@ -138,6 +143,14 @@ public class ConnexionBean implements Serializable
 
 	public void setRedirectionHistorique(boolean redirectionHistorique) {
 		this.redirectionHistorique = redirectionHistorique;
+	}
+
+	public String getTypeUser() {
+		return typeUser;
+	}
+
+	public void setTypeUser(String typeUser) {
+		this.typeUser = typeUser;
 	}
 
 }
